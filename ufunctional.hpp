@@ -43,6 +43,15 @@ namespace ufunctional {
 	template<class Range, class T, class F>
 	auto ufold(const Range& r, T init, F f) -> T { return boost::accumulate(r, init, f);}
 
+    #ifdef __cplusplus
+    #define ___record(Record)                                                                    \
+           bool operator==(Record& other) const {                                                \
+                  static_assert(std::is_trivial<Record>::value, "Not trivially copyable");       \
+                  return memcmp(this, &other, sizeof(Record)) == 0;}                             \
+           bool operator!=(Record& other) const { return !(*this == other);}
+    #else
+    #define ___Immutable2(t, a, b)
+    #endif
 }
 
 #endif

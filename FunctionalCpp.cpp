@@ -8,16 +8,6 @@ using namespace boost::range;
 
 using namespace ufunctional;
 
-struct int_to_string {
-	typedef string result_type;
-
-	auto operator()(int number) const -> string {
-	   stringstream ss;
-	   ss << number;
-	   return ss.str();
-	}
-};
-
 template<class T>
 auto alwaysTrue(T) RETURNS ( true );
 
@@ -57,11 +47,8 @@ BOOST_AUTO_TEST_CASE(RangeTest)
 	cout << "After operation: " << v << endl;
 	cout << "Sorted: " << sortedRange << endl;
 
-	auto vs = umap<vector<string>>(v, [](int x) {return int_to_string()(x);});
+	auto vs = umap<vector<string>>(v, [](int x) {return to_string(x);});
 	BOOST_CHECK_EQUAL_COLLECTIONS(vs.begin(), vs.end(), &tmpS[0], &tmpS[10]);
-
-	cout << "After operation: " << v << endl;
-	cout << "Strings: " << vs << endl;
 
 	int acc = ufold(v, 0, [](int x, int y) {return x + y;});
 	cout << "After operation: " << v << endl;
