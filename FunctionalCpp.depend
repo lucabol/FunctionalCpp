@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1327348203 source:c:\projects\functionalcpp\test.cpp
+	"stdafx.h"
+
+1327355227 c:\projects\functionalcpp\stdafx.h
+	<boost/range/adaptors.hpp>
+	<boost/range/algorithm.hpp>
+	<boost/range/numeric.hpp>
+	<boost/assign.hpp>
+	<boost/test/unit_test.hpp>
+	<algorithm>
+	<iostream>
+	<sstream>
+	<vector>
+	<string>
+
+1327348203 source:c:\projects\functionalcpp\stdafx.cpp
+	"stdafx.h"
+
+1327354571 source:c:\projects\functionalcpp\functionalcpp.cpp
+	"stdafx.h"
+	"ufunctional.hpp"
+
+1327354571 c:\projects\functionalcpp\ufunctional.hpp
+
