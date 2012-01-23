@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+
 int add(int i, int j)
 {
     return i + j;
@@ -21,7 +22,7 @@ BOOST_AUTO_TEST_CASE(specialTheory)
     int e = 32;
     int m = 2;
     int c = 4;
-	
+
     BOOST_CHECK(e == m * c * c);
 }
 

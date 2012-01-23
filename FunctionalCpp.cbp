@@ -32,7 +32,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<ExtraCommands>
+			<Add after="$exe_dir/$exe_name --catch_system_errors=no --detect_memory_leak=1 --detect_fp_exceptions=yes --report_level=no" />
+		</ExtraCommands>
+		<Unit filename="FunctionalCpp.cpp" />
+		<Unit filename="Test.cpp" />
+		<Unit filename="stdafx.cpp" />
+		<Unit filename="stdafx.h" />
+		<Unit filename="ufunctional.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -15,19 +15,16 @@ namespace ufunctional {
 	}
 
 	template <class T>
-	auto identity(T x) RETURNS( x );
+	auto uidentity(T x) RETURNS( x );
 
 	template<class Range, class F>
 	auto ufilter(const Range& r, F f) RETURNS( r | filtered(f) );
 
-	//template<class Range, class Arg, class Ret>
-	//auto ufilter(const Range& r, std::function<Ret (Arg)> f) RETURNS( r | filtered(f) );
-
 	template<class Range>
-	auto usort(Range r) -> Range {return sort(r);};
+	auto usort(Range r) -> Range {return sort(r);}
 
 	template<class Range, class F>
-	auto usort(Range r, F f) -> Range { return sort(r, f);};
+	auto usort(Range r, F f) -> Range { return sort(r, f);}
 
 	template<class Container, class Range, class F>
 	auto umap(const Range& r, F f) -> Container {

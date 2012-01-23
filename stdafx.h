@@ -13,8 +13,6 @@
 #include <boost/range/algorithm.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/assign.hpp>
-
-#define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
 
 #include <algorithm>

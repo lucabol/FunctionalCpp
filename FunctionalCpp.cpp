@@ -1,6 +1,3 @@
-// FunctionalCpp.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include "ufunctional.hpp"
 
@@ -22,9 +19,9 @@ struct int_to_string {
 };
 
 template<class T>
-auto alwaysTrue(T x) RETURNS ( true );
+auto alwaysTrue(T) RETURNS ( true );
 
-bool alwaysTrue1 (int x) { return true;}
+bool alwaysTrue1 (int) { return true;}
 
 BOOST_AUTO_TEST_SUITE(Ranges)
 
@@ -42,10 +39,10 @@ BOOST_AUTO_TEST_CASE(RangeTest)
 	BOOST_CHECK_EQUAL_COLLECTIONS(boost::begin(filteredRange), boost::end(filteredRange), &evenInts[0], &evenInts[5]);
 
 	// ufilter is composeable
-	auto filteredRange2 = filteredRange | filtered(alwaysTrue1);
+	auto filteredRange2 = ufilter(filteredRange, alwaysTrue1);
+	auto filteredRange3 = ufilter(filteredRange2, alwaysTrue<int>);
 	BOOST_CHECK_EQUAL_COLLECTIONS(v.begin(), v.end(), originalV.begin(), originalV.end());
-	BOOST_CHECK_EQUAL_COLLECTIONS(boost::begin(filteredRange2), boost::end(filteredRange2), &evenInts[0], &evenInts[5]);
-
+	BOOST_CHECK_EQUAL_COLLECTIONS(boost::begin(filteredRange3), boost::end(filteredRange3), &evenInts[0], &evenInts[5]);
 
 	auto replacedRange = filteredRange | replaced(0,10) | reversed;
 	cout << "After operation: " << v << endl;
