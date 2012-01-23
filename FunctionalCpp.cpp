@@ -9,6 +9,16 @@ using namespace boost;
 using namespace boost::adaptors;
 using namespace boost::range;
 
+struct int_to_string {
+	typedef string result_type;
+
+	auto operator()(int number) const -> string {
+	   stringstream ss;
+	   ss << number * 2;
+	   return ss.str();
+	}
+};
+
 
 BOOST_AUTO_TEST_SUITE(Ranges)
 
