@@ -43,7 +43,9 @@ auto l_map(const Range& r, F f) -> Container {
 template<class Range, class T, class F>
 auto l_fold(const Range& r, T init, F f) -> T { return accumulate(r, init, f);}
 
-int main()
+BOOST_AUTO_TEST_SUITE(Ranges)
+
+BOOST_AUTO_TEST_CASE(RangeTest)
 {
 	int tmp[] = {1,2,3,4,5,6,7,8,9,0};
 	vector<int> v(&tmp[0], &tmp[10]);
@@ -73,6 +75,6 @@ int main()
 	int acc = l_fold(v, 0, [](int x, int y) {return x + y;});
 	cout << "After operation: " << v << endl;
 	cout << "Sum: " << acc << endl;
-
-	return 0;
 }
+
+BOOST_AUTO_TEST_SUITE_END()
