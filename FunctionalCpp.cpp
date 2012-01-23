@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(RangeTest)
 	cout << "After operation: " << v << endl;
 	cout << "Replaced/reversed: " << replacedRange << endl;
 
-	auto transformedRange = replacedRange | transformed(int_to_string());
+	auto transformedRange = replacedRange | transformed(to_string<int>);
 	cout << "After operation: " << v << endl;
 	cout << "Transformed: " << transformedRange << endl;
 

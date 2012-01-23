@@ -14,6 +14,13 @@ namespace ufunctional {
 		return s;
 	}
 
+    template <class T>
+    auto to_string(T value) -> string {
+       stringstream ss;
+       ss << value;
+       return ss.str();
+    }
+
 	template <class T>
 	auto uidentity(T x) RETURNS( x );
 
