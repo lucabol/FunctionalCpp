@@ -42,6 +42,7 @@ namespace ufunctional {
 	inline auto umap2(const Range& r, F f)
         RETURNS( r | transformed(f) );
 
+	// Taking the argoment by value creates a copy that doesn't modify the passed array
 	template<class Range>
 	inline auto usort(Range r) -> Range {return sort(r);}
 
@@ -79,11 +80,11 @@ namespace ufunctional {
     template <class A, class F1, class F2, class F3>
     inline auto pipe(const A& a, F1 f1, F2 f2,  F3 f3) RETURNS ( f3(f2(f1(a))) );
 
-    template <class A, class B, class C>
-    inline function<C(A)> compose(function<C(B)> f, function<B(A)> g) {
-        return [f,g](A x) { return f(g(x));
-        };
-    }
+//    template <class A, class B, class C>
+//    inline function<C(A)> compose(function<C(B)> f, function<B(A)> g) {
+//        return [f,g](A x) { return f(g(x));
+//        };
+//   }
 }
 
 #endif
