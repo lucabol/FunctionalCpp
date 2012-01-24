@@ -2,12 +2,13 @@
 1327362074 source:c:\projects\functionalcpp\test.cpp
 	"stdafx.h"
 
-1327362074 c:\projects\functionalcpp\stdafx.h
+1327366663 c:\projects\functionalcpp\stdafx.h
 	<boost/range/adaptors.hpp>
 	<boost/range/algorithm.hpp>
 	<boost/range/numeric.hpp>
 	<boost/assign.hpp>
 	<boost/test/unit_test.hpp>
+	<boost/preprocessor/cat.hpp>
 	<algorithm>
 	<iostream>
 	<sstream>
@@ -17,11 +18,11 @@
 1327362074 source:c:\projects\functionalcpp\stdafx.cpp
 	"stdafx.h"
 
-1327362634 source:c:\projects\functionalcpp\functionalcpp.cpp
+1327367541 source:c:\projects\functionalcpp\functionalcpp.cpp
 	"stdafx.h"
 	"ufunctional.hpp"
 
-1327362800 c:\projects\functionalcpp\ufunctional.hpp
+1327367441 c:\projects\functionalcpp\ufunctional.hpp
 
 1306521927 c:\boost_1_48_0\boost\range\adaptors.hpp
 	<boost/range/adaptor/adjacent_filtered.hpp>
@@ -5659,4 +5660,11 @@
 	<boost/test/detail/suppress_warnings.hpp>
 	<stdexcept>
 	<boost/test/detail/enable_warnings.hpp>
+
+1327372755 source:c:\projects\functionalcpp\lazylist.cpp
+	"stdafx.h"
+	"ufunctional.hpp"
+	"ulazylist.hpp"
+
+1327371252 c:\projects\functionalcpp\ulazylist.hpp
 

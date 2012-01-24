@@ -5,8 +5,10 @@ namespace ufunctional {
 	using namespace std;
 	using namespace boost::range;
 
+    // Utility functions
 	#define RETURNS(...) -> decltype(__VA_ARGS__) { return (__VA_ARGS__); } static_assert(true,"")
-	#define BENDL(v) v.begin(), v.end()
+    #define CHECK_ITEMS(c1,c2) \
+        BOOST_CHECK_EQUAL_COLLECTIONS(boost::begin(c1),boost::end(c1), boost::begin(c2),boost::end(c2))
 
 	template<class T>
 	ostream& operator<<(ostream& s, vector<T> const& vec) {
@@ -15,43 +17,73 @@ namespace ufunctional {
 	}
 
     template <class T>
-    auto to_string(T value) -> string {
+    inline auto to_string(T value) -> string {
        stringstream ss;
        ss << value;
        return ss.str();
     }
 
 	template <class T>
-	auto uidentity(T x) RETURNS( x );
+	inline auto uidentity(T x) RETURNS( x );
+
+    // Prelude functions
+	template<class Range, class F>
+	inline auto ufilter(const Range& r, F f) RETURNS( r | filtered(f) );
+
+	template<class Range, class T>
+	inline auto ureplace(const Range& r, T oldValue, T newValue)
+        RETURNS( r | replaced(oldValue, newValue) );
+
+	template<class Range, class T, class F>
+	inline auto ureplace_if(const Range& r, F f,T newValue)
+        RETURNS( r | replaced_if(f, newValue) );
 
 	template<class Range, class F>
-	auto ufilter(const Range& r, F f) RETURNS( r | filtered(f) );
+	inline auto umap2(const Range& r, F f)
+        RETURNS( r | transformed(f) );
 
 	template<class Range>
-	auto usort(Range r) -> Range {return sort(r);}
+	inline auto usort(Range r) -> Range {return sort(r);}
 
 	template<class Range, class F>
-	auto usort(Range r, F f) -> Range { return sort(r, f);}
+	inline auto usort(Range r, F f) -> Range { return sort(r, f);}
 
 	template<class Container, class Range, class F>
-	auto umap(const Range& r, F f) -> Container {
+	inline auto umap(const Range& r, F f) -> Container {
 		Container c;
 		transform(r, back_inserter(c), f);
 		return c;
 	}
 
 	template<class Range, class T, class F>
-	auto ufold(const Range& r, T init, F f) -> T { return boost::accumulate(r, init, f);}
+	inline auto ufold(const Range& r, T init, F f) -> T { return boost::accumulate(r, init, f);}
 
+    // Helpers for functional types, i.e. records, tuples, variant, option
     #ifdef __cplusplus
-    #define ___record(Record)                                                                    \
+    #define urecord(Record)                                                                    \
            bool operator==(Record& other) const {                                                \
                   static_assert(std::is_trivial<Record>::value, "Not trivially copyable");       \
                   return memcmp(this, &other, sizeof(Record)) == 0;}                             \
            bool operator!=(Record& other) const { return !(*this == other);}
     #else
-    #define ___Immutable2(t, a, b)
+    #define urecord(Record)
     #endif
+
+    // Function composition
+    template <class A, class F1>
+    inline auto pipe(const A& a, F1 f1) RETURNS ( f1(a) );
+
+    template <class A, class F1, class F2>
+    inline auto pipe(const A& a, F1 f1, F2 f2) RETURNS ( f2(f1(a)) );
+
+    template <class A, class F1, class F2, class F3>
+    inline auto pipe(const A& a, F1 f1, F2 f2,  F3 f3) RETURNS ( f3(f2(f1(a))) );
+
+    template <class A, class B, class C>
+    inline function<C(A)> compose(function<C(B)> f, function<B(A)> g) {
+        return [f,g](A x) { return f(g(x));
+        };
+    }
 }
 
 #endif

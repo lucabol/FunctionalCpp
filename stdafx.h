@@ -14,6 +14,7 @@
 #include <boost/range/numeric.hpp>
 #include <boost/assign.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/preprocessor/cat.hpp>
 
 #include <algorithm>
 #include <iostream>
