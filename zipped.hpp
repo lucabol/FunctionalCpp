@@ -1,7 +1,7 @@
 #ifndef BOOST_RANGE_ADAPTOR_ZIPPED_HPP
 #define BOOST_RANGE_ADAPTOR_ZIPPED_HPP
 
-#include <boost/range/adaptor/zipped_preprocessor_detail.hpp>
+#include "zipped_preprocessor_detail.hpp"
 
 namespace boost
 {

@@ -1,13 +1,7 @@
+#include "stdafx.h"
+#include "ufunctional.hpp"
 
-#include <boost/assign/list_of.hpp>
-#include <boost/range/adaptor/strided.hpp>
-#include <boost/range/adaptor/zipped.hpp>
-#include <boost/range/algorithm/for_each.hpp>
-#include <boost/range/algorithm/transform.hpp>
-#include <boost/range/irange.hpp>
-#include <boost/spirit/home/phoenix.hpp>
-#include <iostream>
-#include <vector>
+#include "zipped.hpp"
 
 using boost::adaptors::strided;
 using boost::adaptors::unpack;
@@ -19,7 +13,9 @@ using px::arg_names::arg1;
 using px::arg_names::arg2;
 using px::arg_names::arg3;
 
-int main()
+BOOST_AUTO_TEST_SUITE(ZippedSuite)
+
+BOOST_AUTO_TEST_CASE(ZippedRange)
 {
   const std::vector<int> vec1 = list_of(1)(2)(3)(4)(5)(6);
   std::vector<int> vec2 = list_of(10)(20)(30)(40)(50)(60);
@@ -30,9 +26,9 @@ int main()
       unpack(std::cout << px::val('(') << arg1 <<", "<< arg2 << ", " << arg3
                << ")\n"));
   
-  //We can zip output iterators too:
-  boost::transform(vec1, boost::begin(zip(vec3, vec2)),
-     px::construct<boost::tuple<int,int> >(arg1 + 1, arg1 + 2));
+  ////We can zip output iterators too:
+  //boost::transform(vec1, boost::begin(zip(vec3, vec2)),
+  //   px::construct<boost::tuple<int,int> >(arg1 + 1, arg1 + 2));
 
   boost::transform(zip(vec1, vec3), boost::begin(vec2),
       unpack(arg1 + arg2));
@@ -41,4 +37,6 @@ int main()
   boost::for_each(zip(vec2, boost::irange(0,6)), unpack(
     std::cout << px::val("Index ") << arg2 << ": " << arg1 << std::endl));
 }
+
+BOOST_AUTO_TEST_SUITE_END()
 

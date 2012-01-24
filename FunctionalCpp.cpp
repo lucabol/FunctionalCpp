@@ -49,18 +49,19 @@ BOOST_AUTO_TEST_CASE(RangeTest)
 	NON_DESTRUCTIVE;
 	CHECK_ITEMS(transformedRange, tmpS);
 
-
+	// using the non-destructive home made version ...
 	auto sortedRange = usort(v, [](int x, int y) { return x > y;});
 	NON_DESTRUCTIVE;
-	cout << "Sorted: " << sortedRange << endl;
 
-	//auto vs = v | transformed([](int x) {return to_string(x);});
-	//NON_DESTRUCTIVE;
-	//CHECK_ITEMS(vs, tmpS);
+	// MSVC function<> doesn't have a result_type type? Check gcc ...
+	function<string(int)> f = [](int x) {return to_string(x);};
+	auto vs = v | transformed(f);
+	NON_DESTRUCTIVE;
+	CHECK_ITEMS(vs, tmpS);
 
 	int acc = accumulate(v, 0, [](int x, int y) {return x + y;});
 	NON_DESTRUCTIVE;
-	cout << "Sum: " << acc << endl;
+	BOOST_CHECK_EQUAL(acc, 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
