@@ -36,10 +36,14 @@
 			<Add after="$exe_dir/$exe_name --catch_system_errors=no --detect_memory_leak=1 --detect_fp_exceptions=yes --report_level=no" />
 		</ExtraCommands>
 		<Unit filename="FunctionalCpp.cpp" />
+		<Unit filename="LazyList.cpp" />
 		<Unit filename="Test.cpp" />
 		<Unit filename="stdafx.cpp" />
 		<Unit filename="stdafx.h" />
 		<Unit filename="ufunctional.hpp" />
+		<Unit filename="ulazylist.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
