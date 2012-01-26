@@ -3,10 +3,8 @@
 
 using namespace std;
 using namespace boost;
-using namespace boost::adaptors;
-using namespace boost::range;
 
-using namespace ufunctional;
+using namespace functional;
 
 template<class T>
 auto alwaysTrue(T) RETURNS ( true );
