@@ -61,7 +61,7 @@ namespace ufunctional {
 
     // Helpers for functional types, i.e. records, tuples, variant, option
     #ifdef __cplusplus
-    #define urecord(Record)                                                                    \
+    #define urecord(Record)                                                                      \
            bool operator==(Record& other) const {                                                \
                   static_assert(std::is_trivial<Record>::value, "Not trivially copyable");       \
                   return memcmp(this, &other, sizeof(Record)) == 0;}                             \
@@ -70,15 +70,23 @@ namespace ufunctional {
     #define urecord(Record)
     #endif
 
-    // Function composition
-    template <class A, class F1>
-    inline auto pipe(const A& a, F1 f1) RETURNS ( f1(a) );
+    //Function composition
+	template< class A, class F1 >
+	inline auto pipe(const A & a, const F1 & f1) -> decltype( std::remove_reference< decltype(f1(a)) >::type() ) {
+		return f1(a); 
+	}
 
-    template <class A, class F1, class F2>
-    inline auto pipe(const A& a, F1 f1, F2 f2) RETURNS ( f2(f1(a)) );
+	template< class A, class F1, class F2 >
+	inline auto pipe(const A & a, const F1 & f1, const F2 & f2)
+		-> decltype( std::remove_reference< decltype(f2(f1(a))) >::type() ) {
+		return f2(f1(a)); 
+	}
 
-    template <class A, class F1, class F2, class F3>
-    inline auto pipe(const A& a, F1 f1, F2 f2,  F3 f3) RETURNS ( f3(f2(f1(a))) );
+	template< class A, class F1, class F2 >
+	inline auto pipe(const A & a, const F1 & f1, const F2 & f2, const F3 & f3)
+		-> decltype( std::remove_reference< decltype(f3(f2(f1(a)))) >::type() ) {
+		return f3(f2(f1(a))); 
+	}
 
 //    template <class A, class B, class C>
 //    inline function<C(A)> compose(function<C(B)> f, function<B(A)> g) {
