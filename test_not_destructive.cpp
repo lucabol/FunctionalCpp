@@ -1,8 +1,7 @@
 #include "stdafx.h"
-#include "ufunctional.hpp"
+#include "functional.hpp"
 
 using namespace std;
-using namespace boost;
 
 using namespace functional;
 

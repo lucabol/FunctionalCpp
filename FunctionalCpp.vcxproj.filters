@@ -21,16 +21,13 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ufunctional.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="zipped.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="zipped_preprocessor_detail.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mapped.hpp">
+    <ClInclude Include="functional.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,13 +35,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionalCpp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_not_destructive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

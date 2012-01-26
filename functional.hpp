@@ -9,11 +9,10 @@ namespace functional {
 	using namespace std;
 	using namespace pstade::oven;
 
-    // Utility functions
-	#define RETURNS(...) -> decltype(__VA_ARGS__) { return (__VA_ARGS__); } static_assert(true,"")
-    #define CHECK_ITEMS(c1,c2) \
-        BOOST_CHECK_EQUAL_COLLECTIONS(begin(c1), end(c1), begin(c2), end(c2))
+    /// Utility functions
 
+	// Simpler way to create a one line lambda
+	#define RETURNS(...) -> decltype(__VA_ARGS__) { return (__VA_ARGS__); } static_assert(true,"")
 
     // Helpers for functional types, i.e. records, tuples, variant, option
     #ifdef __cplusplus
