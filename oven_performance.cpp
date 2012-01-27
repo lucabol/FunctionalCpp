@@ -64,6 +64,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 		auto lessThan50 = v | filtered([](int i) { return i < 50;})
 							| transformedF([] (int i) { return i * 2;});
+
 		return pstade::oven::accumulate (lessThan50, 0);
 	});
 	cout  << setw(40) << "Language lambda: " << languageLambda << endl;
@@ -84,7 +85,6 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 		return sum;
 	});
 	cout  << setw(40) << "For loop: " << forLambda << endl;
-
 }
 
 BOOST_AUTO_TEST_SUITE_END()
