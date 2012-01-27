@@ -2,10 +2,6 @@
 // FunctionalCpp.pch will be the pre-compiled header
 // stdafx.obj will contain the pre-compiled type information
 
-//#define BOOST_TEST_NO_LIB
-//#define BOOST_TEST_DYN_LINK
-
-#define BOOST_TEST_MAIN
 #include "stdafx.h"
 
 //#include <boost/test/unit_test.hpp>

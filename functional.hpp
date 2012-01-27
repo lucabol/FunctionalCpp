@@ -97,7 +97,7 @@ namespace functional {
 
 	// This function works with lambdas and normal functions (transformed doesn't)
 	template <class F>
-	decltype(pstade::oven::transformed(functor_with_traits(make_ref<F>()))) mapped(F f)
+	decltype(pstade::oven::transformed(functor_with_traits(make_ref<F>()))) transformedF(F f)
 	{
 		return pstade::oven::transformed(functor_with_traits(f)); 
 	}

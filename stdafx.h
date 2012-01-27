@@ -1,10 +1,19 @@
 #pragma once
 
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <string>
+#define _SCL_SECURE_NO_WARNINGS
+#pragma warning( disable:4180 )
 
-#include <boost/assign.hpp>
+#include <ctime>
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <functional>
+#include <cstring>
+#include <type_traits>
+
+#include <pstade/oven/transformed.hpp>
+#include <pstade/oven/filtered.hpp>
+
+#define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
-#include <boost/tuple/tuple.hpp>
+
