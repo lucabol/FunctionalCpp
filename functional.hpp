@@ -3,11 +3,11 @@
 
 #include <cstring>
 #include <type_traits>
-#include <pstade/oven/transformed.hpp>
+#include <boost/range/adaptor/transformed.hpp>
+#include <boost/range/algorithm/sort.hpp>
 
 namespace functional {
 	using namespace std;
-	using namespace pstade::oven;
 
     /// Utility functions
 
@@ -97,9 +97,16 @@ namespace functional {
 
 	// This function works with lambdas and normal functions (transformed doesn't)
 	template <class F>
-	inline decltype(pstade::oven::transformed(functor_with_traits(make_ref<F>()))) transformedF(F f)
+	inline decltype(boost::adaptors::transformed(functor_with_traits(make_ref<F>()))) transformedF(F f)
 	{
-		return pstade::oven::transformed(functor_with_traits(f)); 
+		return boost::adaptors::transformed(functor_with_traits(f)); 
+	}
+
+	// Makes some algorithms not destructive
+	template <class R, class F>
+	R sort(R range, F pred) {
+			boost::range::sort(range, pred);
+			return range;
 	}
 }
 

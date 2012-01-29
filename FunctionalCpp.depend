@@ -2,23 +2,17 @@
 1327362074 source:c:\projects\functionalcpp\test.cpp
 	"stdafx.h"
 
-1327436788 c:\projects\functionalcpp\stdafx.h
-	<boost/range/adaptors.hpp>
-	<boost/range/algorithm.hpp>
-	<boost/range/numeric.hpp>
-	<boost/range/irange.hpp>
-	<boost/assign.hpp>
-	<boost/test/unit_test.hpp>
-	<boost/preprocessor/cat.hpp>
-	<boost/spirit/home/phoenix.hpp>
-	<boost/tuple/tuple.hpp>
-	<algorithm>
+1327787340 c:\projects\functionalcpp\stdafx.h
+	<ctime>
 	<iostream>
-	<sstream>
+	<iomanip>
 	<vector>
-	<string>
+	<functional>
+	<cstring>
+	<type_traits>
+	<boost/test/unit_test.hpp>
 
-1327362074 source:c:\projects\functionalcpp\stdafx.cpp
+1327787340 source:c:\projects\functionalcpp\stdafx.cpp
 	"stdafx.h"
 
 1327393611 source:c:\projects\functionalcpp\functionalcpp.cpp
@@ -5670,4 +5664,41 @@
 	"ulazylist.hpp"
 
 1327371252 c:\projects\functionalcpp\ulazylist.hpp
+
+1327771028 source:c:\projects\functionalcpp\test_not_destructive.cpp
+	"stdafx.h"
+	"functional.hpp"
+	<boost/lexical_cast.hpp>
+	<boost/test/unit_test.hpp>
+	<boost/range/adaptor/filtered.hpp>
+	<boost/range/adaptor/transformed.hpp>
+	<boost/range/adaptor/taken.hpp>
+	<boost/range/to_container.hpp>
+	<boost/range/numeric.hpp>
+	<boost/range/algorithm/equal.hpp>
+	<boost/range/algorithm/sort.hpp>
+
+1327769832 c:\projects\functionalcpp\functional.hpp
+	<cstring>
+	<type_traits>
+	<boost/range/adaptor/transformed.hpp>
+
+1327858058 source:c:\projects\functionalcpp\oven_performance.cpp
+	"stdafx.h"
+	"functional.hpp"
+	<iostream>
+	<vector>
+	<functional>
+	<boost/lambda/lambda.hpp>
+	<boost/test/unit_test.hpp>
+	<boost/range/adaptor/filtered.hpp>
+	<boost/range/adaptor/transformed.hpp>
+	<boost/range/adaptor/taken.hpp>
+	<boost/range/to_container.hpp>
+	<boost/range/numeric.hpp>
+	<boost/chrono/process_cpu_clocks.hpp>
+	<boost/chrono/time_point.hpp>
+	<boost/chrono/chrono_io.hpp>
+	<boost/range/regular.hpp>
+	<boost/range/iteration.hpp>
 

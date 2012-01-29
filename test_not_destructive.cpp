@@ -5,24 +5,27 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include <pstade/oven/numeric.hpp>
-#include <pstade/oven/counting.hpp>
-#include <pstade/oven/filtered.hpp>
-#include <pstade/oven/transformed.hpp>
-#include <pstade/oven/equals.hpp>
-#include <pstade/oven/sorted.hpp>
+#include <boost/range/adaptor/filtered.hpp>
+#include <boost/range/adaptor/transformed.hpp>
+#include <boost/range/adaptor/taken.hpp>
+#include <boost/range/to_container.hpp>
+#include <boost/range/numeric.hpp>
+#include <boost/range/algorithm/equal.hpp>
+#include <boost/range/algorithm/sort.hpp>
 
 using namespace std;
 
+using namespace std;
 using namespace functional;
-using namespace pstade::oven;
+using namespace boost::range;
+using namespace boost::adaptors;
 
 template<class T>
 auto alwaysTrue(T) RETURNS ( true );
 
 bool alwaysTrue1 (int) { return true;}
 
-#define NON_DESTRUCTIVE BOOST_CHECK(equals(v, originalV))
+#define NON_DESTRUCTIVE BOOST_CHECK(boost::equal(v, originalV))
 
 BOOST_AUTO_TEST_SUITE(Ranges)
 
@@ -39,31 +42,31 @@ BOOST_AUTO_TEST_CASE(RangeTest)
 	// filter doesn't modify the original range and works
 	auto filteredRange = v | filtered([](int x) { return x % 2 == 0;});
 	NON_DESTRUCTIVE;
-	BOOST_CHECK(equals(filteredRange, evenInts));
+	BOOST_CHECK(boost::equal(filteredRange, evenInts));
 
 	// operators are composeable
 	auto filteredRange2 = filteredRange
 						  | filtered(alwaysTrue1)
 						  | filtered(alwaysTrue<int>);
 	NON_DESTRUCTIVE;
-	BOOST_CHECK(equals(filteredRange2, evenInts));
+	BOOST_CHECK(boost::equal(filteredRange2, evenInts));
 
 	// you need a different function to transform using lambdas and normal functions
 	auto replacedRange = filteredRange | transformedF([](int x) -> int { if(x == 0) return 10; else return x;});
 	NON_DESTRUCTIVE;
-	BOOST_CHECK(equals(replacedRange, replacedInts));
+	BOOST_CHECK(boost::equal(replacedRange, replacedInts));
 
 	// it works well for functors
 	auto transformedRange = v | transformed(boost::lexical_cast<string, int>);
 	NON_DESTRUCTIVE;
-	BOOST_CHECK(equals(transformedRange, tmpS));
+	BOOST_CHECK(boost::equal(transformedRange, tmpS));
 
 	// even sorting is not destructive
-	auto sortedRange = v | sorted([](int x, int y) { return x < y;});
+	auto sortedRange = functional::sort(v, [](int x, int y) { return x < y;});
 	NON_DESTRUCTIVE;
-	BOOST_CHECK(equals(sortedRange, sortedArr));
+	BOOST_CHECK(boost::equal(sortedRange, sortedArr));
 
-	int acc = pstade::oven::accumulate(v, 0, [](int x, int y) {return x + y;});
+	int acc = boost::accumulate(v, 0, [](int x, int y) {return x + y;});
 	NON_DESTRUCTIVE;
 	BOOST_CHECK_EQUAL(acc, 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 0);
 }

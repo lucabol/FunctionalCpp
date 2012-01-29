@@ -85,18 +85,20 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="discriminated_union.hpp" />
     <ClInclude Include="functional.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="zipped.hpp" />
     <ClInclude Include="zipped_preprocessor_detail.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="discriminated_union.cpp" />
     <ClCompile Include="oven_performance.cpp" />
-    <ClCompile Include="test_not_destructive.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="test_not_destructive.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,7 @@
 #pragma once
 
+//#define BOOST_RESULT_OF_USE_DECLTYPE
+
 #define _SCL_SECURE_NO_WARNINGS
 #pragma warning( disable:4180 )
 
@@ -11,9 +13,5 @@
 #include <cstring>
 #include <type_traits>
 
-#include <pstade/oven/transformed.hpp>
-#include <pstade/oven/filtered.hpp>
-
-#define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
 

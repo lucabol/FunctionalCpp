@@ -27,15 +27,21 @@
     <ClInclude Include="functional.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="discriminated_union.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="oven_performance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="test_not_destructive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="oven_performance.cpp">
+    <ClCompile Include="discriminated_union.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
