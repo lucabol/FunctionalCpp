@@ -30,18 +30,33 @@
     <ClInclude Include="discriminated_union.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dbc.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="oven_performance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="test_not_destructive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="discriminated_union.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dbc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="range_performance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="other_functional_idioms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="records.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

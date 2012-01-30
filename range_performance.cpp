@@ -26,6 +26,8 @@ using namespace boost::range;
 using namespace boost::adaptors;
 
 
+namespace {
+
 typedef boost::chrono::process_cpu_clock the_clock;
 
 struct timer {
@@ -75,7 +77,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 		return boost::accumulate (lessThan50, 0);
 	});
-	cout  << setw(40) << "Language lambda: " << languageLambda << endl;
+	//cout  << setw(40) << "Language lambda: " << languageLambda << endl;
 
 	auto boostLambda = time_test(repeat,[&v] () -> int {
 		// no need for regular here?? but if I use it performance go bad
@@ -84,7 +86,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 		return boost::accumulate (lessThan50, 0);
 	});
-	cout  << setw(40) << "Boost lambda: " << boostLambda << endl;
+	//cout  << setw(40) << "Boost lambda: " << boostLambda << endl;
 
 	auto forLambda = time_test(repeat,[&v] () -> int {
 		int sum = 0;
@@ -93,10 +95,15 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 				sum += *it * 2;
 		return sum;
 	});
-	cout  << setw(40) << "For loop: " << forLambda << endl;
+	//cout  << setw(40) << "For loop: " << forLambda << endl;
 
+#ifdef NDEBUG
 	BOOST_CHECK(languageLambda < forLambda * 2);
 	BOOST_CHECK(boostLambda < forLambda * 2);
+#endif
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+}

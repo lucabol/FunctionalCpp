@@ -17,10 +17,10 @@ namespace functional {
     // Helpers for functional types, i.e. records, tuples, variant, option
     #ifdef __cplusplus
     #define RECORD(Record)                                                                       \
-           bool operator==(Record& other) const {                                                \
+           bool operator==(Record& other) const {                                          \
                   static_assert(std::is_trivial<Record>::value, "Not trivially copyable");       \
                   return memcmp(this, &other, sizeof(Record)) == 0;}                             \
-           bool operator!=(Record& other) const { return !(*this == other);}
+           bool operator!=(Record& other) const { return !(*this == other);}				 
     #else
     #define RECORD(Record)
     #endif
@@ -108,6 +108,14 @@ namespace functional {
 			boost::range::sort(range, pred);
 			return range;
 	}
+
+	// Adding common used functions
+	template<class T>
+	int next(T i) { return i + 1;}
+
+	template<class T>
+	auto counting(T start, T end) RETURNS ( boost::iteration(start, next<T>) | taken(end - start) );
+
 }
 
 #endif

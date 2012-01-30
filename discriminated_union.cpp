@@ -18,24 +18,17 @@ BOOST_AUTO_TEST_SUITE(DiscriminatedUnion)
 
 BOOST_AUTO_TEST_CASE(DiscriminatedUnionTest)
 {
-	auto du = BuildAction::CreateLinkOneWithNext(3);
+	auto du = BuildAction::LinkOneWithNext(3);
 
 	DU_MATCH(du)
-		DU_CASE_TAG (du, Reset,
-			string s,s1 = " Error"; // testing commas in the code
+		DU_CASE_TAG  (du, Reset,
+			string s,s1 = " Error"; // testing commas in the code, should be catch by __VAR_ARGS__
 			BOOST_CHECK(false);
 			throw s + s1;
 		)
-		DU_CASE (du, LinkManyWithNext,
-			BOOST_CHECK(false);
-		)
-		DU_CASE (du, LinkOneWithNext,
-			BOOST_CHECK_EQUAL(value, 3);
-		)
-		DU_DEFAULT(
-			throw "no match";
-		)
-
+		DU_CASE		(du, LinkManyWithNext, BOOST_CHECK(false);)
+		DU_CASE		(du, LinkOneWithNext,  BOOST_CHECK_EQUAL(value, 3);)
+		DU_DEFAULT	(					   throw "no match";)
 }
 
 BOOST_AUTO_TEST_SUITE_END()

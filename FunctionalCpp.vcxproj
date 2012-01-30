@@ -85,6 +85,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="dbc.hpp" />
     <ClInclude Include="discriminated_union.hpp" />
     <ClInclude Include="functional.hpp" />
     <ClInclude Include="stdafx.h" />
@@ -92,8 +93,12 @@
     <ClInclude Include="zipped_preprocessor_detail.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="dbc.cpp" />
     <ClCompile Include="discriminated_union.cpp" />
-    <ClCompile Include="oven_performance.cpp" />
+    <ClCompile Include="other_functional_idioms.cpp" />
+    <ClCompile Include="pipe.cpp" />
+    <ClCompile Include="range_performance.cpp" />
+    <ClCompile Include="records.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
