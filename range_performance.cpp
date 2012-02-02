@@ -57,6 +57,11 @@ int by2(int i) { return i*2;}
 
 BOOST_AUTO_TEST_SUITE(OvenPerf)
 
+struct Doubler {
+	typedef int result_type;
+	int operator() (int i) const { return i * 2;}
+};
+
 BOOST_AUTO_TEST_CASE(OvenPerfTest)
 {
 #ifdef NDEBUG
@@ -77,7 +82,16 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 		return boost::accumulate (lessThan50, 0);
 	});
-	//cout  << setw(40) << "Language lambda: " << languageLambda << endl;
+	cout  << setw(40) << "Language lambda: " << languageLambda << endl;
+
+	auto functorLambda = time_test(repeat,[&v] () -> int {
+
+		auto lessThan50 = v | filtered([](int i) { return i < 50;})
+							| transformed(Doubler());
+
+		return boost::accumulate (lessThan50, 0);
+	});
+	cout  << setw(40) << "Functor lambda: " << functorLambda << endl;
 
 	auto boostLambda = time_test(repeat,[&v] () -> int {
 		// no need for regular here?? but if I use it performance go bad
@@ -86,7 +100,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 		return boost::accumulate (lessThan50, 0);
 	});
-	//cout  << setw(40) << "Boost lambda: " << boostLambda << endl;
+	cout  << setw(40) << "Boost lambda: " << boostLambda << endl;
 
 	auto forLambda = time_test(repeat,[&v] () -> int {
 		int sum = 0;
@@ -95,9 +109,10 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 				sum += *it * 2;
 		return sum;
 	});
-	//cout  << setw(40) << "For loop: " << forLambda << endl;
+	cout  << setw(40) << "For loop: " << forLambda << endl;
 
 #ifdef NDEBUG
+	//BOOST_CHECK(functorLambda < forLambda * 2);
 	BOOST_CHECK(languageLambda < forLambda * 2);
 	BOOST_CHECK(boostLambda < forLambda * 2);
 #endif

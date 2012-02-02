@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/algorithm/sort.hpp>
+#include <boost/function_types/result_type.hpp>
+#include <boost/function_types/parameter_types.hpp>
 
 namespace functional {
 	using namespace std;
@@ -86,8 +88,8 @@ namespace functional {
 	public:
 		functor_with_traits_t(F f_) : f(f_) {}
 
-		typedef typename functor_traits<F>::result_type result_type;
-		typedef typename functor_traits<F>::argument_type argument_type;
+		typedef typename functor_traits<F>::argument_type  argument_type;
+		typedef typename functor_traits<F>::result_type  result_type;
 
 		result_type operator()(argument_type a) const { return f(a); }
 	};
@@ -95,7 +97,7 @@ namespace functional {
 	template <class F>
 	inline functor_with_traits_t<F> functor_with_traits(F f) { return functor_with_traits_t<F>(f); }
 
-	// This function works with lambdas and normal functions (transformed doesn't)
+	// This function works with language lambda and normal functions (transformed doesn't)
 	template <class F>
 	inline decltype(boost::adaptors::transformed(functor_with_traits(make_ref<F>()))) transformedF(F f)
 	{
