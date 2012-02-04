@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="oven_performance.cpp" open="1" top="1" tabpos="4">
-		<Cursor position="1408" topLine="0" />
+	<File name="other_functional_idioms.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="722" topLine="0" />
+	</File>
+	<File name="pipe.cpp" open="1" top="1" tabpos="7">
+		<Cursor position="893" topLine="0" />
+	</File>
+	<File name="records.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="2359" topLine="45" />
 	</File>
 	<File name="stdafx.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="213" topLine="0" />
 	</File>
 	<File name="stdafx.h" open="1" top="0" tabpos="1">
-		<Cursor position="273" topLine="0" />
+		<Cursor position="151" topLine="0" />
 	</File>
 	<File name="test_not_destructive.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="219" topLine="0" />
