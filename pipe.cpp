@@ -25,13 +25,13 @@ BOOST_AUTO_TEST_SUITE(PipeSuite)
 
 BOOST_AUTO_TEST_CASE(PipeTest)
 {
-	// Function defined as lambda 
+	// Function defined as lambda
 	BOOST_CHECK_EQUAL(pipe(2, by2, by2), 8);
 	// Function defined as normal
 	BOOST_CHECK_EQUAL(pipe(2, by2f, by2), 8);
 
 	// Calling a standard function and different codomain
-	BOOST_CHECK_EQUAL(pipe("bobby", strlen), 5);
+	BOOST_CHECK_EQUAL(pipe("bobby", strlen), 5u);
 
 	// Shows usage of counting
 	auto toTest = counting(0, 10);

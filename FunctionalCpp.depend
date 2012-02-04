@@ -2,7 +2,7 @@
 1327362074 source:c:\projects\functionalcpp\test.cpp
 	"stdafx.h"
 
-1327787340 c:\projects\functionalcpp\stdafx.h
+1328361890 c:\projects\functionalcpp\stdafx.h
 	<ctime>
 	<iostream>
 	<iomanip>
@@ -10,6 +10,10 @@
 	<functional>
 	<cstring>
 	<type_traits>
+	<string>
+	<exception>
+	<sstream>
+	<memory>
 	<boost/test/unit_test.hpp>
 
 1327787340 source:c:\projects\functionalcpp\stdafx.cpp
@@ -5665,7 +5669,7 @@
 
 1327371252 c:\projects\functionalcpp\ulazylist.hpp
 
-1327771028 source:c:\projects\functionalcpp\test_not_destructive.cpp
+1327868102 source:c:\projects\functionalcpp\test_not_destructive.cpp
 	"stdafx.h"
 	"functional.hpp"
 	<boost/lexical_cast.hpp>
@@ -5678,10 +5682,15 @@
 	<boost/range/algorithm/equal.hpp>
 	<boost/range/algorithm/sort.hpp>
 
-1327769832 c:\projects\functionalcpp\functional.hpp
+1328361707 c:\projects\functionalcpp\functional.hpp
 	<cstring>
 	<type_traits>
 	<boost/range/adaptor/transformed.hpp>
+	<boost/range/algorithm/sort.hpp>
+	<boost/function_types/result_type.hpp>
+	<boost/function_types/parameter_types.hpp>
+	<boost/range/iteration.hpp>
+	<boost/range/adaptor/taken.hpp>
 
 1327858058 source:c:\projects\functionalcpp\oven_performance.cpp
 	"stdafx.h"
@@ -5701,4 +5710,66 @@
 	<boost/chrono/chrono_io.hpp>
 	<boost/range/regular.hpp>
 	<boost/range/iteration.hpp>
+
+1328356010 source:c:\projects\functionalcpp\discriminated_union.cpp
+	"stdafx.h"
+	<vector>
+	<boost/test/unit_test.hpp>
+	"discriminated_union.hpp"
+
+1328356010 c:\projects\functionalcpp\discriminated_union.hpp
+	<cassert>
+
+1328356826 source:c:\projects\functionalcpp\other_functional_idioms.cpp
+	"stdafx.h"
+	<boost/test/unit_test.hpp>
+	<boost/tuple/tuple.hpp>
+	<boost/tuple/tuple_comparison.hpp>
+	<boost/tuple/tuple_io.hpp>
+
+1328356010 source:c:\projects\functionalcpp\pipe.cpp
+	"stdafx.h"
+	<boost/test/unit_test.hpp>
+	"functional.hpp"
+	<boost/iterator_adaptors.hpp>
+	<boost/range/iteration.hpp>
+	<boost/range/adaptor/taken.hpp>
+	<boost/lexical_cast.hpp>
+	<boost/range/adaptor/filtered.hpp>
+
+1328356010 source:c:\projects\functionalcpp\range_performance.cpp
+	"stdafx.h"
+	"functional.hpp"
+	<iostream>
+	<vector>
+	<functional>
+	<boost/lambda/lambda.hpp>
+	<boost/test/unit_test.hpp>
+	<boost/range/adaptor/filtered.hpp>
+	<boost/range/adaptor/transformed.hpp>
+	<boost/range/adaptor/taken.hpp>
+	<boost/range/to_container.hpp>
+	<boost/range/numeric.hpp>
+	<boost/chrono/process_cpu_clocks.hpp>
+	<boost/chrono/time_point.hpp>
+	<boost/chrono/chrono_io.hpp>
+	<boost/range/regular.hpp>
+	<boost/range/iteration.hpp>
+
+1328362128 source:c:\projects\functionalcpp\records.cpp
+	"stdafx.h"
+	<vector>
+	<boost/test/unit_test.hpp>
+	"functional.hpp"
+
+1328356010 source:c:\projects\functionalcpp\dbc.cpp
+	"stdafx.h"
+	"dbc.hpp"
+	<boost/test/unit_test.hpp>
+
+1328361929 c:\projects\functionalcpp\dbc.hpp
+	<functional>
+	<string>
+	<exception>
+	<sstream>
 

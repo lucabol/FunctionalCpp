@@ -71,14 +71,24 @@ BOOST_AUTO_TEST_CASE(RecordsTest)
 	ConstRecord cr;
 	// Having a const member makes it not C usable
 	BOOST_CHECK(! std::is_trivial<ConstRecord>::value);
+	#ifdef _MSC_VER
 	BOOST_CHECK(! std::is_standard_layout<ConstRecord>::value);
+	#else
+    BOOST_CHECK( std::is_standard_layout<ConstRecord>::value);
+
+	#endif
+
 	BOOST_CHECK(! std::is_pod<ConstRecord>::value);
 	BOOST_CHECK(! bit_copyable(cr));
 
 	// Nice construction syntax
 	RecordS rs = {2, "bobby"};
 	BOOST_CHECK(! std::is_trivial<RecordS>::value);
+	#ifdef _MSC_VER
 	BOOST_CHECK(! std::is_standard_layout<RecordS>::value);
+	#else
+	BOOST_CHECK( std::is_standard_layout<RecordS>::value);
+	#endif
 	BOOST_CHECK(! std::is_pod<RecordS>::value);
 	BOOST_CHECK(bit_copyable(rs)); // but it is trivially copyable??
 

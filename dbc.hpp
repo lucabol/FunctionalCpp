@@ -16,10 +16,11 @@ public:
 		// best way to convert an int to a string in portable c++?
 		stringstream ss;
 		ss << _line;
-		
+
 		static char buffer[100];
-		// uses the safe _Copy_s on windows
-#ifdef _WIN32
+
+#ifdef _MSC_VER
+		// uses the safe _Copy_s on msvc
 		string s(_file + " at line " + ss.str() + " " + _message);
 		auto length = s._Copy_s(buffer, 100, s.length());
 #else
@@ -28,7 +29,7 @@ public:
 #endif
 		return buffer;
 	}
-	
+
 protected:
 	dbcexception(const std::string& file, int line, const std::string& message):
 		_file(file), _line(line), _message(message) {}
@@ -98,19 +99,19 @@ private:
 // http://social.msdn.microsoft.com/Forums/en/vcgeneral/thread/2c4698e1-8159-44fc-a64c-d15220acedb8
 #define ensures(F) \
 	int ___UNIQUE_LINE = __LINE__; \
-	auto ___UNIQUE_POST = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, ___UNIQUE_LINE,"Post-condition failure: " #F);}); 
+	auto ___UNIQUE_POST = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, ___UNIQUE_LINE,"Post-condition failure: " #F);});
 
 // ensuresClass works for classes that have a copy constructor, which will be called to initialize the pre variable
 // with the state of the object at the start of a method
 // this allows the syntax this.x < pre.x
 #define ensuresClass(F) \
 	auto ___pre(*this); \
-	auto ___UNIQUE_POST = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, __LINE__,"Post-condition failure: " #F);}); 
+	auto ___UNIQUE_POST = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, __LINE__,"Post-condition failure: " #F);});
 
 // works when the class has no copy constructor. ASS gets assigned to __pre2.
 #define ensuresClass2(ASS,F) \
 	auto ___pre2(ASS); \
-	auto ___UNIQUE_POST2 = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, __LINE__,"Post-condition failure: " #ASS " is ___pre2 in " #F);}); 
+	auto ___UNIQUE_POST2 = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, __LINE__,"Post-condition failure: " #ASS " is ___pre2 in " #F);});
 
 #else
 #define ensures(F)
@@ -132,7 +133,7 @@ private:
 // you get a compile time error if you don't have such function (good)
 #define invariant() \
 	if(!(this->isValid())) throw invariantexception(__FILE__, __LINE__,"Invariant failure"); \
-	auto ___UNIQUE_INV = ___post([&]() {if((!std::uncaught_exception() && !this->isValid())) throw invariantexception(__FILE__, __LINE__, "Invariant failure");}); 
+	auto ___UNIQUE_INV = ___post([&]() {if((!std::uncaught_exception() && !this->isValid())) throw invariantexception(__FILE__, __LINE__, "Invariant failure");});
 #else
 #define invariant()
 #endif

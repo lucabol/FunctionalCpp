@@ -5,8 +5,8 @@
 #include <boost/tuple/tuple_comparison.hpp>
 #include <boost/tuple/tuple_io.hpp>
 
-using namespace std;
 using namespace boost::tuples;
+using std::string;
 
 BOOST_AUTO_TEST_SUITE(DiscriminatedUnion)
 
@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(Tuples)
 	auto t = make_tuple("bob", "john", 3, 2.3);
 	BOOST_CHECK_EQUAL(get<0>(t), "bob");
 	BOOST_CHECK_EQUAL(get<2>(t), 3);
-	
+
 	// yep, compiler error
 	//auto k = get<10>(t);
 

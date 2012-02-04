@@ -3,7 +3,10 @@
 //#define BOOST_RESULT_OF_USE_DECLTYPE
 
 #define _SCL_SECURE_NO_WARNINGS
+
+#ifdef _MSC_VER
 #pragma warning( disable:4180 )
+#endif
 
 #include <ctime>
 #include <iostream>
