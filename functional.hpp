@@ -20,7 +20,7 @@ namespace functional {
 
     // Helpers for functional types, i.e. records, tuples, variant, option
     #ifdef __cplusplus
-        #define RECORD(Record)                                                                       \
+        #define pod_equality(Record)                                                                       \
                bool operator==(Record& other) const {                                          \
                       static_assert(std::is_trivial<Record>::value, "Not trivially copyable");       \
                       return memcmp(this, &other, sizeof(Record)) == 0;}                             \

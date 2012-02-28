@@ -37,7 +37,7 @@ struct Record {
 	int Id;
 	char Name[20];
 
-	RECORD(Record);
+	pod_equality(Record);
 };
 
 // string members break it

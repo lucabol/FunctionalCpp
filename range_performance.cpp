@@ -75,10 +75,8 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 	auto languageLambda = time_test(repeat,[&v] () -> int {
 
-		// using regular doesn't compile in VS2010
 		auto lessThan50 = v | filtered([](int i) { return i < 50;})
 							| transformedF([] (int i) { return i * 2;});
-							//| transformed(regular([] (int i) { return i * 2;}));
 
 		return boost::accumulate (lessThan50, 0);
 	});
@@ -112,7 +110,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 	cout  << setw(40) << "For loop: " << forLambda << endl;
 
 #ifdef NDEBUG
-	//BOOST_CHECK(functorLambda < forLambda * 2);
+	BOOST_CHECK(functorLambda < forLambda * 2);
 	BOOST_CHECK(languageLambda < forLambda * 2);
 	BOOST_CHECK(boostLambda < forLambda * 2);
 #endif
