@@ -95,7 +95,7 @@ private:
 // notice the need to check for uncaught_exception to make sure we are not throwing during a stack unwind called by another throw
 // the lambda captures variables, so it will be compiled as a class, hence it is relatively expensive
 // if perf is an issue, disable the check in release
-// the assignment in the first enures line below is woraround for preprocessor bug in msvc
+// the assignment in the first ensures line below is woraround for preprocessor bug in msvc
 // http://social.msdn.microsoft.com/Forums/en/vcgeneral/thread/2c4698e1-8159-44fc-a64c-d15220acedb8
 #define ensures(F) \
 	int ___UNIQUE_LINE = __LINE__; \

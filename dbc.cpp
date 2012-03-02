@@ -15,11 +15,10 @@ using namespace std;
 double divide(double x, double y) {
 	double result;
 	requires(y != 0);
-	requires(y != 0 &&
-		     y != 0)
+	requires(y != 0 && y != 0)
 
 	ensures(result < x);
-	ensures(result < x + 1)
+	ensures(result < x + 1);
 
 	result = y / x;
 	return result;
