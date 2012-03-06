@@ -55,22 +55,31 @@ public:
 		dbcexception(file, line, message) {}
 };
 
-// invariantexception
-class invariantexception: public dbcexception {
-public:
-	invariantexception(const std::string& file, int line, const std::string& message):
-		dbcexception(file, line, message) {}
-};
-
-typedef std::function<void ()> ___dbcLambda;
+typedef std::function<bool ()> ___dbcLambda;
 
 // stores a lambda and executes it in the destructor, this is the main trick to get postcondition
 class ___post {
 public:
-	___post(const ___dbcLambda& postF): _f(postF) {}
-	~___post() { _f();}
+    ___post(const char *file, long line, const char *expr, const ___dbcLambda& postF)
+        : _f(postF),
+          _file(file),
+          _line(line),
+          _expr(expr)
+    {}
+
+    ~___post()
+    {
+        if( !std::uncaught_exception() && !_f() )
+        {
+            throw postexception(_file,_line,_expr);
+        }
+    }
+
 private:
-	const ___dbcLambda _f;
+    const ___dbcLambda _f;
+    const char * const _file;
+    const long _line;
+    const char * const _expr;
 };
 
 // used to merge the argument of two macros *after* expansion
@@ -98,20 +107,20 @@ private:
 // the assignment in the first ensures line below is woraround for preprocessor bug in msvc
 // http://social.msdn.microsoft.com/Forums/en/vcgeneral/thread/2c4698e1-8159-44fc-a64c-d15220acedb8
 #define ensures(F) \
-	int ___UNIQUE_LINE = __LINE__; \
-	auto ___UNIQUE_POST = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, ___UNIQUE_LINE,"Post-condition failure: " #F);});
+    int ___UNIQUE_LINE = __LINE__;  \
+    auto ___UNIQUE_POST = ___post( __FILE__, __LINE__, "Post Condtion Failed: " #F, [&](){return (F);});
 
 // ensuresClass works for classes that have a copy constructor, which will be called to initialize the pre variable
 // with the state of the object at the start of a method
 // this allows the syntax this.x < pre.x
 #define ensuresClass(F) \
 	auto ___pre(*this); \
-	auto ___UNIQUE_POST = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, __LINE__,"Post-condition failure: " #F);});
+    auto ___UNIQUE_POST = ___post( __FILE__, __LINE__, "Post Condtion Failed: " #F, [&](){return (F);});
 
 // works when the class has no copy constructor. ASS gets assigned to __pre2.
 #define ensuresClass2(ASS,F) \
 	auto ___pre2(ASS); \
-	auto ___UNIQUE_POST2 = ___post([&]() {if(!std::uncaught_exception() && !(F)) throw postexception(__FILE__, __LINE__,"Post-condition failure: " #ASS " is ___pre2 in " #F);});
+    auto ___UNIQUE_POST = ___post( __FILE__, __LINE__, "Post-condition failure: " #ASS " is ___pre2 in " #F, [&](){return (F);});
 
 #else
 #define ensures(F)
@@ -132,8 +141,8 @@ private:
 // an invariant is both a precondition and a postcondition that call the isValid member function
 // you get a compile time error if you don't have such function (good)
 #define invariant() \
-	if(!(this->isValid())) throw invariantexception(__FILE__, __LINE__,"Invariant failure"); \
-	auto ___UNIQUE_INV = ___post([&]() {if((!std::uncaught_exception() && !this->isValid())) throw invariantexception(__FILE__, __LINE__, "Invariant failure");});
+	if(!(this->isValid())) throw preexception(__FILE__, __LINE__,"Invariant failure"); \
+	auto ___UNIQUE_INV = ___post( __FILE__, __LINE__, "Invariant failure", [&](){return this->isValid();});
 #else
 #define invariant()
 #endif

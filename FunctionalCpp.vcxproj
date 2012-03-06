@@ -94,7 +94,10 @@
     <ClInclude Include="zipped_preprocessor_detail.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dbc.cpp" />
+    <ClCompile Include="dbc.cpp">
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</PreprocessToFile>
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessToFile>
+    </ClCompile>
     <ClCompile Include="discriminated_union.cpp" />
     <ClCompile Include="other_functional_idioms.cpp" />
     <ClCompile Include="pipe.cpp" />

@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(DBCTest)
 	BOOST_CHECK_NO_THROW(c.Add(3));
 
 	// fails invariant
-	BOOST_CHECK_THROW(c.Add(-4), invariantexception);
+	BOOST_CHECK_THROW(c.Add(-4), postexception);
 
 	// fails precondition
 	c.Reset();
