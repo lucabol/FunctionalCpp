@@ -15,21 +15,58 @@
 
 using namespace std;
 
+namespace {
+	struct _Person {
+		int id;
+		char name[20];
+
+		pod_equality(_Person);
+	};	
+}
+
+typedef const _Person CPerson;
+
+struct Person {
+	const int Id;
+	const string Name;
+
+	Person(int id, string name): Id(id), Name(name) {}
+
+    const Person& operator=(const Person& other) {
+		static_cast<string>(this->Name) = other.Name;
+		static_cast<int>(this->Id)		= other.Id;
+		return *this;
+	}
+
+    bool operator==(const Person& other) const { return Id == other.Id && Name == other.Name;}
+    bool operator!=(const Person& other) const { return !(*this == other);}
+};
+
+template<class Record>
+class pod_equal {
+    bool operator==(const Record& other) const {                                                 \
+            static_assert(std::is_trivial<Record>::value, "Not trivially copyable");       \
+            return memcmp(this, &other, sizeof(Record)) == 0;}                             \
+    bool operator!=(const Record& other) const { return !(*this == other);}
+};
+
+struct Person2/*: pod_equal<Person2>*/ {
+	int Id;
+	char Name[20];
+
+	pod_equality(Person2);
+};
+
 // const members are very messy to initialize
 struct ConstRecord {
 	const int Id;
 	const char Name[20];
 
-	// You get a compile time exception if you cannot copy it
-	//RECORD(ConstRecord);
-
 	// Wow, look at const_cast, really it should be nonconst with standard accessors ...
 	ConstRecord(): Id(0), Name() { strcpy(const_cast<char*>(Name), "bobby");};
 
-    const ConstRecord& operator=(const ConstRecord& other) { return other;}
-
-    bool operator==(ConstRecord& other) const { return Id == other.Id && Name == other.Name;}
-    bool operator!=(ConstRecord& other) const { return !(*this == other);}
+    bool operator==(const ConstRecord& other) const { return Id == other.Id && !strcmp(Name, other.Name);}
+    bool operator!=(const ConstRecord& other) const { return !(*this == other);}
 };
 
 // This works
@@ -53,7 +90,7 @@ struct RecordS {
 template<class T>
 bool bit_copyable(T t) {
 	const size_t size = sizeof(T);
-	unique_ptr<char> buf(new char[size]);
+	unique_ptr<char[]> buf(new char[size]);
 	memcpy(buf.get(), &t, size);
 	T* cp = (T*) buf.get();
 	return *cp == t;
@@ -79,7 +116,7 @@ BOOST_AUTO_TEST_CASE(RecordsTest)
 	#endif
 
 	BOOST_CHECK(! std::is_pod<ConstRecord>::value);
-	BOOST_CHECK(! bit_copyable(cr));
+	BOOST_CHECK(bit_copyable(cr));
 
 	// Nice construction syntax
 	RecordS rs = {2, "bobby"};
@@ -110,6 +147,17 @@ BOOST_AUTO_TEST_CASE(RecordsTest)
 	// passing ref and value works
 	auto f = [&] (Record rvalue, Record rref) { return rvalue == rref && rvalue == r;};
 	BOOST_CHECK(f(r, rcopy));
+
+	Person2 p2 = {3, "Rob"};
+	Person2 p3 = {3, "Rob"};
+	BOOST_CHECK(p2 == p3);
+
+	CPerson cp1 = {2, "Bob"};
+	CPerson cp2 = {2, "Bob"};
+	BOOST_CHECK(cp1 == cp2);
+
+	// Cannot assign to a const struct
+	//cp1.id = 3;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

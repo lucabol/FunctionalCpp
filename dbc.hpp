@@ -108,14 +108,14 @@ private:
 // http://social.msdn.microsoft.com/Forums/en/vcgeneral/thread/2c4698e1-8159-44fc-a64c-d15220acedb8
 #define ensures(F) \
     int ___UNIQUE_LINE = __LINE__;  \
-    auto ___UNIQUE_POST = ___post( __FILE__, __LINE__, "Post Condtion Failed: " #F, [&](){return (F);});
+    auto ___UNIQUE_POST = ___post( __FILE__, __LINE__, "Post-condition failure:" #F, [&](){return (F);});
 
 // ensuresClass works for classes that have a copy constructor, which will be called to initialize the pre variable
 // with the state of the object at the start of a method
 // this allows the syntax this.x < pre.x
 #define ensuresClass(F) \
 	auto ___pre(*this); \
-    auto ___UNIQUE_POST = ___post( __FILE__, __LINE__, "Post Condtion Failed: " #F, [&](){return (F);});
+    auto ___UNIQUE_POST = ___post( __FILE__, __LINE__, "Post-condition failure: " #F, [&](){return (F);});
 
 // works when the class has no copy constructor. ASS gets assigned to __pre2.
 #define ensuresClass2(ASS,F) \
