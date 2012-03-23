@@ -49,7 +49,6 @@ the_clock::times time_test(int repeat, function<int (void)> f) {
 		sum += f();
 
 	auto ret = timer.elapsed();
-	//cout << "Sum: " << sum << endl;
 	return ret;
 }
 
@@ -59,7 +58,7 @@ BOOST_AUTO_TEST_SUITE(OvenPerf)
 
 struct Doubler {
 	typedef int result_type;
-	int operator() (int i) const { return i * 2;}
+	int operator() (int i) const { return i < 50;}
 };
 
 BOOST_AUTO_TEST_CASE(OvenPerfTest)
@@ -75,7 +74,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 	auto languageLambda = time_test(repeat,[&v] () -> int {
 
-		auto lessThan50 = v | filtered([](int i) { return i < 50;})
+		auto lessThan50 = v | filtered(    [](int i) { return i < 50;})
 							| transformedF([] (int i) { return i * 2;});
 
 		return boost::accumulate (lessThan50, 0);
@@ -92,7 +91,6 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 	cout  << setw(40) << "Functor lambda: " << functorLambda << endl;
 
 	auto boostLambda = time_test(repeat,[&v] () -> int {
-		// no need for regular here?? but if I use it performance go bad
 		auto lessThan50 = v | filtered(_1 < 50)
 							| transformed(_1 * 2);
 
@@ -103,7 +101,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 	auto forLambda = time_test(repeat,[&v] () -> int {
 		int sum = 0;
 		for(vector<int>::const_iterator it = v.begin(); it != v.end(); ++it)
-			if(*it < 50)
+			if(*it < 50 == 0)
 				sum += *it * 2;
 		return sum;
 	});

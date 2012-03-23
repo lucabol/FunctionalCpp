@@ -15,7 +15,7 @@
 
 using namespace std;
 
-namespace {
+namespace detail {
 	struct _Person {
 		int id;
 		char name[20];
@@ -24,7 +24,21 @@ namespace {
 	};	
 }
 
-typedef const _Person CPerson;
+typedef const detail::_Person CPerson;
+typedef detail::_Person MPerson;
+
+
+
+MPerson ChangePerson1(const MPerson& p) {
+	MPerson temp(p);
+	temp.id = 4;
+	return temp;
+}
+
+MPerson ChangePerson2(MPerson p) {
+	p.id = 4;
+	return p;
+}
 
 struct Person {
 	const int Id;
@@ -86,11 +100,10 @@ struct RecordS {
     bool operator!=(const RecordS& other) const { return !(*this == other);}
 };
 
-
 template<class T>
 bool bit_copyable(T t) {
 	const size_t size = sizeof(T);
-	unique_ptr<char[]> buf(new char[size]);
+	unique_ptr<unsigned char[]> buf(new unsigned char[size]);
 	memcpy(buf.get(), &t, size);
 	T* cp = (T*) buf.get();
 	return *cp == t;
