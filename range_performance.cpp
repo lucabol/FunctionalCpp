@@ -107,6 +107,17 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 	});
 	cout  << setw(40) << "For loop: " << forLambda << endl;
 
+	auto stlForEach = time_test(repeat,[&v] () -> int {
+        int sum = 0;
+        std::for_each( v.cbegin(), v.cend(),
+            [&](int i){
+                if( i < 50 ) sum += i*2; 
+            });
+        return sum;
+	});
+	cout  << setw(40) << "STL foreach: " << forLambda << endl;
+
+
 #ifdef NDEBUG
 	BOOST_CHECK(functorLambda < forLambda * 2);
 	BOOST_CHECK(languageLambda < forLambda * 2);
