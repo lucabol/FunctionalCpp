@@ -58,8 +58,14 @@ BOOST_AUTO_TEST_SUITE(OvenPerf)
 
 struct Doubler {
 	typedef int result_type;
-	int operator() (int i) const { return i < 50;}
+	int operator() (int i) const { return i * 2;}
 };
+
+struct Filterer {
+	typedef int result_type;
+	bool operator() (int i) const { return i < 50;}
+};
+
 
 BOOST_AUTO_TEST_CASE(OvenPerfTest)
 {
@@ -83,7 +89,7 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 
 	auto functorLambda = time_test(repeat,[&v] () -> int {
 
-		auto lessThan50 = v | filtered([](int i) { return i < 50;})
+		auto lessThan50 = v | filtered(Filterer())
 							| transformed(Doubler());
 
 		return boost::accumulate (lessThan50, 0);
@@ -116,7 +122,6 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
         return sum;
 	});
 	cout  << setw(40) << "STL foreach: " << forLambda << endl;
-
 
 #ifdef NDEBUG
 	BOOST_CHECK(functorLambda < forLambda * 2);

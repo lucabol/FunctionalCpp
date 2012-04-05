@@ -2,6 +2,7 @@
 #define DISCRIMINATED_UNION_HPP
 
 #include <cassert>
+#include <exception>
 
 // Declaring the discriminated union
 // from http://blogs.msdn.com/b/jaredpar/archive/2010/11/18/discriminated-unions-in-c.aspx
@@ -56,9 +57,12 @@
 
 #define DU_GET_KIND() unsigned int GetKind() const { return m_kind; }
 
-#define DU_END() };
+#define DU_END };
 
 // Defining match-like syntax
+
+class match_exception: std::exception {};
+
 #define DU_MATCH(unionName) if(false) {}
 
 #define DU_CASE_TAG(unionName, entry, ...)			\
@@ -71,7 +75,10 @@
 		auto value = unionName.Get##entry();		\
 		__VA_ARGS__									\
 	}
+
 #define DU_DEFAULT(...)								\
-	else { __VA_ARGS__}
+	else if(true) { __VA_ARGS__}
+
+#define DU_MATCH_END else {throw new match_exception();}
 
 #endif

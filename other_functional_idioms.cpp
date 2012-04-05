@@ -5,8 +5,9 @@
 #include <boost/tuple/tuple_comparison.hpp>
 #include <boost/tuple/tuple_io.hpp>
 
-using namespace boost::tuples;
+//using namespace boost::tuples;
 using std::string;
+using namespace std;;
 
 BOOST_AUTO_TEST_SUITE(DiscriminatedUnion)
 
@@ -28,7 +29,7 @@ BOOST_AUTO_TEST_CASE(Tuples)
 	//auto k = get<10>(t);
 
 	auto t2(t);
-	BOOST_CHECK_EQUAL(t2, t);
+	BOOST_CHECK(t2 == t);
 
 	// passing as argument, returning it
 	auto f = [] (tuple<string, string, int, double> t) { return t;};
@@ -37,12 +38,12 @@ BOOST_AUTO_TEST_CASE(Tuples)
 
 	// automatic deconstruction
 	string s1; string s2; int i; double d;
-	tie(s1, s2, i, d) = f(t);
+	std::tie(s1, s2, i, d) = f(t);
 	BOOST_CHECK_EQUAL(s1, "bob");
 
 	// partial reconstruction
 	string s11;
-	tie(s11, ignore, ignore, ignore) = f(t);
+	std::tie(s11, ignore, ignore, ignore) = f(t);
 	BOOST_CHECK_EQUAL(s11, "bob");
 }
 

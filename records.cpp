@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_CASE(RecordsTest)
 	// Having a const member makes it not C usable
 	BOOST_CHECK(! std::is_trivial<ConstRecord>::value);
 	#ifdef _MSC_VER
-	BOOST_CHECK(! std::is_standard_layout<ConstRecord>::value);
+	BOOST_CHECK( std::is_standard_layout<ConstRecord>::value);
 	#else
     BOOST_CHECK( std::is_standard_layout<ConstRecord>::value);
 
