@@ -26,8 +26,8 @@ DU_END
 
 auto print(LivingEntity en) -> void {
 	DU_MATCH(en)
-		DU_CASE(en, Dog,	cout << "I'm a per named " << value;)
-		DU_CASE(en, Person, cout << "I'm a dog named " << value;) 
+		DU_CASE(Dog,	cout << "I'm a per named " << value;)
+		DU_CASE(Person, cout << "I'm a dog named " << value;) 
 	DU_MATCH_END
 }
 
@@ -38,14 +38,15 @@ BOOST_AUTO_TEST_CASE(DiscriminatedUnionTest)
 	auto du = BuildAction::LinkOneWithNext(3);
 
 	DU_MATCH(du)
-		DU_CASE_TAG  (du, Reset,
+		DU_CASE_TAG  (Reset,
 			string s,s1 = " Error"; // testing commas in the code, should be catch by __VAR_ARGS__
 			BOOST_CHECK(false);
 			throw s + s1;
 		)
-		DU_CASE		(du, LinkManyWithNext, BOOST_CHECK(false);)
-		DU_CASE		(du, LinkOneWithNext,  BOOST_CHECK_EQUAL(value, 3);)
-		DU_DEFAULT	(					   throw "no match";)
+		DU_CASE		(LinkManyWithNext, BOOST_CHECK(false);)
+		DU_CASE		(LinkOneWithNext,  BOOST_CHECK_EQUAL(value, 3);)
+		DU_DEFAULT	(				   throw "no match";)
+	DU_MATCH_END
 }
 
 BOOST_AUTO_TEST_CASE(DiscriminatedUnionTest2)
@@ -53,27 +54,27 @@ BOOST_AUTO_TEST_CASE(DiscriminatedUnionTest2)
 	auto entity = LivingEntity::Dog("Bob");
 
 	DU_MATCH(entity)
-		DU_CASE(entity, Dog, BOOST_CHECK_EQUAL(value, "Bob");)
-		DU_CASE(entity, Person,BOOST_CHECK(false);) 
+		DU_CASE(Dog, BOOST_CHECK_EQUAL(value, "Bob");)
+		DU_CASE(Person,BOOST_CHECK(false);) 
 	DU_MATCH_END
 
 	DU_MATCH(entity)
-		DU_CASE(entity, Dog,
+		DU_CASE(Dog,
 			//cout << "I should be here";
 			BOOST_CHECK_EQUAL(value, "Bob");
 		)
-		DU_CASE(entity, Person,
+		DU_CASE(Person,
 			BOOST_CHECK(false);
 		) 
 	DU_MATCH_END
 
 	DU_MATCH(entity)
-		DU_CASE(entity, Dog,
+		DU_CASE(Dog,
 		{
 			//cout << "I should be here";
 			BOOST_CHECK_EQUAL(value, "Bob");
 		})
-		DU_CASE(entity, Person,
+		DU_CASE(Person,
 		{
 			BOOST_CHECK(false);
 		}) 

@@ -64,22 +64,22 @@
 
 class match_exception: std::exception {};
 
-#define DU_MATCH(unionName) if(false) {}
+#define DU_MATCH(unionName) { auto du_match_var = unionName; if(false) {}
 
-#define DU_CASE_TAG(unionName, entry, ...)			\
-	else if(unionName.Is##entry()) {				\
+#define DU_CASE_TAG(entry, ...)			\
+	else if(du_match_var.Is##entry()) {				\
 		__VA_ARGS__									\
 	}
 
-#define DU_CASE(unionName, entry, ...)				\
-	else if(unionName.Is##entry()) {				\
-		auto value = unionName.Get##entry();		\
+#define DU_CASE(entry, ...)				\
+	else if(du_match_var.Is##entry()) {				\
+		auto value = du_match_var.Get##entry();		\
 		__VA_ARGS__									\
 	}
 
 #define DU_DEFAULT(...)								\
 	else if(true) { __VA_ARGS__}
 
-#define DU_MATCH_END else {throw new match_exception();}
+#define DU_MATCH_END else {throw new match_exception();} }
 
 #endif
