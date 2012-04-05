@@ -10,6 +10,7 @@
 #define DU_DECLARE(name)						\
     struct name {                               \
     private:                                    \
+		typedef name unionName;					\
         name() {}                               \
         unsigned int m_kind;					\
     public:
@@ -22,7 +23,7 @@
         name() : m_kind(__LINE__) {}                        \
         bool IsNone() const {return m_kind == __LINE__;}
 
-#define DU_VALUE(unionName, entryName, entryType)															\
+#define DU_VALUE(entryName, entryType)																		\
         static unionName entryName(const entryType& value) {												\
             unionName unionValue;                                                                           \
             unionValue.m_kind = __LINE__;                                                                   \
@@ -35,7 +36,7 @@
         entryType m_##entryName;                                                                            \
     public:
 
-#define DU_POINTER(unionName, entryName, entryType)															\
+#define DU_POINTER(entryName, entryType)																	\
         static unionName entryName(entryType* value) {														\
             unionName unionValue;                                                                           \
             unionValue.m_kind = __LINE__;                                                                   \
@@ -48,7 +49,7 @@
         entryType* m_##entryName;                                                                           \
     public:
 
-#define DU_FLAG(unionName, entryName)																		\
+#define DU_FLAG(entryName)																					\
         static unionName entryName() {																		\
             unionName unionValue;                                                                           \
             unionValue.m_kind = __LINE__;                                                                   \

@@ -9,19 +9,19 @@
 using namespace std;
 
 DU_DECLARE(BuildAction)
-    DU_FLAG (BuildAction, Reset)
-    DU_VALUE(BuildAction, LinkOneWithNext,  int)
-    DU_VALUE(BuildAction, LinkManyWithNext, vector<int>)
+    DU_FLAG (Reset)
+    DU_VALUE(LinkOneWithNext,  int)
+    DU_VALUE(LinkManyWithNext, vector<int>)
 DU_END
 
 DU_DECLARE(Switch)
-	DU_FLAG(Switch, On)
-	DU_FLAG(Switch, Off)
+	DU_FLAG(On)
+	DU_FLAG(Off)
 DU_END
 
 DU_DECLARE(LivingEntity)
-    DU_VALUE(LivingEntity, Person,	string)
-    DU_VALUE(LivingEntity, Dog,		string)
+    DU_VALUE(Person,	string)
+    DU_VALUE(Dog,		string)
 DU_END
 
 auto print(LivingEntity en) -> void {
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(DiscriminatedUnionTest2)
 	DU_MATCH(entity)
 		DU_CASE(entity, Dog,
 		{
-			cout << "I should be here";
+			//cout << "I should be here";
 			BOOST_CHECK_EQUAL(value, "Bob");
 		})
 		DU_CASE(entity, Person,
@@ -79,20 +79,20 @@ BOOST_AUTO_TEST_CASE(DiscriminatedUnionTest2)
 		}) 
 	DU_MATCH_END
 
-	entity = LivingEntity::Dog("Rob");
+	//entity = LivingEntity::Dog("Rob");
 
-	if(false) {}
-		else if(entity.IsDog()) {
-			auto value = entity.GetDog();
-			BOOST_CHECK_EQUAL(value, "Bob");
-		}
-		else if(entity.IsPerson()) {
-			auto value = entity.GetPerson();
-			BOOST_CHECK(false);
-		} 
-		else {
-			throw new match_exception();
-		}
+	//if(false) {}
+	//	else if(entity.IsDog()) {
+	//		auto value = entity.GetDog();
+	//		BOOST_CHECK_EQUAL(value, "Bob");
+	//	}
+	//	else if(entity.IsPerson()) {
+	//		auto value = entity.GetPerson();
+	//		BOOST_CHECK(false);
+	//	} 
+	//	else {
+	//		throw new match_exception();
+	//	}
 }
 
 BOOST_AUTO_TEST_SUITE_END()
