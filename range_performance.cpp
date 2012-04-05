@@ -124,9 +124,9 @@ BOOST_AUTO_TEST_CASE(OvenPerfTest)
 	cout  << setw(40) << "STL foreach: " << forLambda << endl;
 
 #ifdef NDEBUG
-	BOOST_CHECK(functorLambda < forLambda * 2);
-	BOOST_CHECK(languageLambda < forLambda * 2);
-	BOOST_CHECK(boostLambda < forLambda * 2);
+	BOOST_CHECK(functorLambda < (long) forLambda * 2);
+	BOOST_CHECK(languageLambda < (long)forLambda * 2);
+	BOOST_CHECK(boostLambda < (long)forLambda * 2);
 #endif
 
 }

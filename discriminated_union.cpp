@@ -14,14 +14,21 @@ DU_DECLARE(BuildAction)
     DU_VALUE(BuildAction, LinkManyWithNext, vector<int>)
 DU_END
 
+DU_DECLARE(Switch)
+	DU_FLAG(Switch, On)
+	DU_FLAG(Switch, Off)
+DU_END
 
 DU_DECLARE(LivingEntity)
     DU_VALUE(LivingEntity, Person,	string)
     DU_VALUE(LivingEntity, Dog,		string)
 DU_END
 
-auto print(LivingEntity en) {
-
+auto print(LivingEntity en) -> void {
+	DU_MATCH(en)
+		DU_CASE(en, Dog,	cout << "I'm a per named " << value;)
+		DU_CASE(en, Person, cout << "I'm a dog named " << value;) 
+	DU_MATCH_END
 }
 
 BOOST_AUTO_TEST_SUITE(DiscriminatedUnion)
